@@ -35,6 +35,8 @@ public class NewJFrame extends javax.swing.JFrame {
         TextoAsig = new javax.swing.JTextField();
         ComboAsig = new javax.swing.JComboBox<>();
         BotonAñadir = new javax.swing.JButton();
+        BotonAñadirTodo = new javax.swing.JButton();
+        BotonBorrarTodos = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Agregar Elementos Combox");
@@ -54,6 +56,20 @@ public class NewJFrame extends javax.swing.JFrame {
             }
         });
 
+        BotonAñadirTodo.setText("Añadir Todos");
+        BotonAñadirTodo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotonAñadirTodoActionPerformed(evt);
+            }
+        });
+
+        BotonBorrarTodos.setText("Borrar Todos");
+        BotonBorrarTodos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotonBorrarTodosActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -61,12 +77,17 @@ public class NewJFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(BotonAñadir)
                     .addComponent(InfoElem)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(TextoAsig, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(TextoAsig, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(BotonAñadir))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(ComboAsig, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(ComboAsig, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(BotonBorrarTodos, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(BotonAñadirTodo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -79,8 +100,12 @@ public class NewJFrame extends javax.swing.JFrame {
                     .addComponent(TextoAsig, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ComboAsig, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(33, 33, 33)
-                .addComponent(BotonAñadir)
-                .addContainerGap(154, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(BotonAñadir)
+                    .addComponent(BotonAñadirTodo))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(BotonBorrarTodos)
+                .addContainerGap(125, Short.MAX_VALUE))
         );
 
         pack();
@@ -118,6 +143,28 @@ public class NewJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_ComboAsigActionPerformed
 
+    private void BotonAñadirTodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonAñadirTodoActionPerformed
+        // TODO add your handling code here:
+        String[] modulos = {"Programación multimedia", "Sistemas informáticos", "Bases de datos", "Lenguaje de marcas"};
+        for (String modulo : modulos) {
+            boolean existe = false;
+            for (int i = 0; i < ComboAsig.getItemCount(); i++) {
+                if (ComboAsig.getItemAt(i).equals(modulo)) {
+                    existe = true;
+                    break;
+                }
+            }
+            if (!existe) {
+                ComboAsig.addItem(modulo);
+            }
+        }
+    }//GEN-LAST:event_BotonAñadirTodoActionPerformed
+
+    private void BotonBorrarTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonBorrarTodosActionPerformed
+        // TODO add your handling code here:
+        ComboAsig.removeAllItems();
+    }//GEN-LAST:event_BotonBorrarTodosActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -128,20 +175,16 @@ public class NewJFrame extends javax.swing.JFrame {
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+            for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+                if ("Windows".equals(info.getName())) {
+                    UIManager.setLookAndFeel(info.getClassName());
+                    System.out.println("Look and Feel de Windows aplicado correctamente.");
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(NewJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(NewJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(NewJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(NewJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            System.out.println("Error al aplicar el Look and Feel de Windows.");
         }
         //</editor-fold>
 
@@ -155,6 +198,8 @@ public class NewJFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BotonAñadir;
+    private javax.swing.JButton BotonAñadirTodo;
+    private javax.swing.JButton BotonBorrarTodos;
     private javax.swing.JComboBox<String> ComboAsig;
     private javax.swing.JLabel InfoElem;
     private javax.swing.JTextField TextoAsig;
